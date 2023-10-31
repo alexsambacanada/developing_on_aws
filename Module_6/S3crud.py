@@ -4,8 +4,13 @@ s3 = boto3.resource('s3')
 
 bucket_name = 'alexalexalexyeahyeahyeah'
 object_key = 'blah.txt'
-file_to_upload = './blah.txt'
+file_to_upload = 'blah.txt'
 downloaded_file_path = './blahdownloaded.txt'
+
+import os
+os.chdir('/home/ec2-user/environment/developing_on_aws/Module_6/')
+cwd = os.getcwd()
+print(cwd)
 
 
 def create_s3_bucket(bucket_name):
