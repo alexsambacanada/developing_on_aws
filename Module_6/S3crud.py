@@ -1,12 +1,12 @@
 import boto3
+import pprint
 
 s3 = boto3.resource('s3')
-s3Client = boto3.client('s3')
 
 bucket_name = 'demo-aai-developing-on-aws-alexw'
 object_key = 'sampledata.csv'
 file_to_upload = 'sampledata.csv'
-downloaded_file_path = './sampledata.csv'
+downloaded_file_path = './sampledata_downloaded.csv'
 
 import os
 os.chdir('/home/ec2-user/environment/developing_on_aws/Module_6/')
@@ -39,9 +39,10 @@ def put_object_in_bucket(bucket_name, object_key, file_path):
 #Get Object Metadata
 def get_object_metadata(bucket_name, object_key):
     try:
-        metadata = s3Client.head_object(Bucket=bucket_name, Key=object_key)
+        metadata = s3.meta.client.head_object(Bucket=bucket_name, Key=object_key)
         
-        print(metadata)
+        # print(metadata)
+        pprint.PrettyPrinter(width=20).pprint(metadata)
     except Exception as e:
         print(f"Failed to retrieve object metadata for '{object_key}' in bucket '{bucket_name}': {str(e)}")
 

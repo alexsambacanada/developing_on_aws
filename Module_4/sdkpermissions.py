@@ -4,11 +4,11 @@ from botocore.exceptions import ClientError
 # Create a session without assuming any role
 session = boto3.Session(region_name='us-east-1')
 
-# Specify the IAM role ARN you want to assume
-role_arn = 'arn:aws:iam::475815351148:role/developing-on-aws-mod-kinesis-ro'
 
 try:
     
+    #Specify the IAM role ARN you want to assume
+    role_arn = 'arn:aws:iam::475815351148:role/developing-on-aws-mod-kinesis-ro'
     
     # Assuming the IAM role
     
@@ -34,6 +34,9 @@ try:
         aws_session_token=credentials['SessionToken'],
         region_name='us-east-1'
     )
+
+
+
 
     # Create a Kinesis client using the new session
     kinesis_client = session.client('kinesis')

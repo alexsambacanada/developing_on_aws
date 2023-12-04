@@ -32,6 +32,7 @@ def put_items_in_table(table_name):
     try:
         table = dynamodb.Table(table_name)
         for i in range(500):
+            print(f'Putting item {i} in table.')
             table.put_item(
                 Item={
                     'id': i,
@@ -44,7 +45,6 @@ def put_items_in_table(table_name):
         
 def get_item(table_name, item_id):
     table = dynamodb.Table(table_name)
-    # Use the get_item method to retrieve an item by its primary key
     
     try:
         print(f"Getting item {item_id}.")
@@ -62,13 +62,17 @@ def get_item(table_name, item_id):
         
 
 def update_item_in_table(table_name, item_id, new_data):
+    
+    # item_id = 42
+    # new_data = "this is some awesome new data!!"
+    
     try:
         table = dynamodb.Table(table_name)
         response = table.update_item(
             Key={'id': item_id},
             ExpressionAttributeNames={'#d': 'data'},
-            UpdateExpression='set #d = :d',
             ExpressionAttributeValues={':d': new_data},
+            UpdateExpression='set #d = :d',
             ConditionExpression='attribute_exists(id)',
             ReturnValues='ALL_NEW'
         )
@@ -112,6 +116,8 @@ input("Press Enter to continue...")
 update_item_in_table(table_name, 42, 'this is some awesome new data!!!')
 input("Press Enter to continue...")
 
+delete_item_from_table(table_name, 42)
+input("Press Enter to continue...")
 
 # Delete the DynamoDB table
 delete_dynamodb_table(table_name)
